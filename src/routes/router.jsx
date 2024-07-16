@@ -4,6 +4,18 @@ import Error from "../error/Error";
 import Root from "../Root";
 import Role from "../pages/Role";
 import Registration from "../pages/Registration";
+import Dashboard from "../dashboard/Dashboard";
+
+import SendMoney from "../dashboard/components/SendMoney";
+import CashOut from "../dashboard/components/CashOut";
+import CashIn from "../dashboard/components/CashIn";
+import History from "../dashboard/components/History";
+
+import TrHistory from "../dashboard/components/agent/TrHistory";
+import TrManagement from "../dashboard/components/agent/TrManagement";
+import BalanceInquiry from "../dashboard/components/agent/BalanceInquiry";
+import SystemManagement from "../dashboard/components/admin/SystemManagement";
+import UserManagement from "../dashboard/components/admin/UserManagement";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +34,48 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Registration />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+          {
+            path: "/dashboard/send-money",
+            element: <SendMoney />,
+          },
+          {
+            path: "/dashboard/cash-out",
+            element: <CashOut />,
+          },
+          {
+            path: "/dashboard/cash-in",
+            element: <CashIn />,
+          },
+          {
+            path: "/dashboard/history",
+            element: <History />,
+          },
+          {
+            path: "/dashboard/tr-management",
+            element: <TrManagement />,
+          },
+          {
+            path: "/dashboard/tr-history",
+            element: <TrHistory />,
+          },
+          {
+            path: "/dashboard/balance-inquiry",
+            element: <BalanceInquiry />,
+          },
+          {
+            path: "/dashboard/system-management",
+            element: <SystemManagement />,
+          },
+          {
+            path: "/dashboard/user-management",
+            element: <UserManagement />,
+          },
+        ],
       },
     ],
   },

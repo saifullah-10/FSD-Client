@@ -15,10 +15,15 @@ export default function Role() {
           </h1>
         </div>
         <div className=" flex  gap-10">
-          <div className=" cursor-pointer flex flex-col items-center gap-2 border-4 border-gray-200 w-48 py-4 rounded-xl">
-            <LuUserCheck className=" text-4xl text-orange-500 " />
-            <h2 className=" text-lg font-semibold text-black/60">As A User</h2>
-          </div>
+          <Link to={"/register"}>
+            <div
+              onClick={() => dispatch(setRole("user"))}
+              className="  cursor-pointer flex flex-col items-center gap-2 border-4 border-gray-200 w-48 py-4 rounded-xl"
+            >
+              <LuUserCheck className=" text-4xl text-orange-500 " />
+              <h2 className=" text-lg font-semibold text-black/60">User</h2>
+            </div>
+          </Link>
           <Link to={"/register"}>
             <div
               onClick={() => dispatch(setRole("agent"))}
