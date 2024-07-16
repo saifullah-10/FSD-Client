@@ -38,16 +38,7 @@ export default function TrHistory() {
               Money Received from 018888888888
             </td>
             <td className="px-6 py-4 whitespace-nowrap">300 BDT</td>
-            <td className="px-6 py-4 whitespace-nowrap">
-              <div className=" flex gap-5">
-                <button className=" bg-green-600 text-white/90 px-3 py-1 rounded-xl">
-                  Approved
-                </button>
-                <button className=" bg-red-600 text-white/90 px-3 py-1 rounded-xl">
-                  Reject
-                </button>
-              </div>
-            </td>
+            <td className="px-6 py-4 whitespace-nowrap">Approved</td>
           </tr>
         </tbody>
       </table>

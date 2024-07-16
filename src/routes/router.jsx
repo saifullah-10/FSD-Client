@@ -13,9 +13,10 @@ import History from "../dashboard/components/History";
 
 import TrHistory from "../dashboard/components/agent/TrHistory";
 import TrManagement from "../dashboard/components/agent/TrManagement";
-import BalanceInquiry from "../dashboard/components/agent/BalanceInquiry";
+
 import SystemManagement from "../dashboard/components/admin/SystemManagement";
 import UserManagement from "../dashboard/components/admin/UserManagement";
+import DefaultDashboard from "../dashboard/components/DefaultDashboard";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         element: <Dashboard />,
         children: [
           {
+            path: "/dashboard",
+            element: <DefaultDashboard />,
+          },
+          {
             path: "/dashboard/send-money",
             element: <SendMoney />,
           },
@@ -63,10 +68,7 @@ const router = createBrowserRouter([
             path: "/dashboard/tr-history",
             element: <TrHistory />,
           },
-          {
-            path: "/dashboard/balance-inquiry",
-            element: <BalanceInquiry />,
-          },
+
           {
             path: "/dashboard/system-management",
             element: <SystemManagement />,

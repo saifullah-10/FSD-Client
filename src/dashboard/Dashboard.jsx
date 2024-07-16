@@ -1,7 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 
 export default function Dashboard() {
-  const role = "agent";
+  const role = "admin";
   return (
     <section className=" min-h-screen py-10">
       <div className=" w-[98%] md:w-[70%] h-[calc(100vh-6rem)]  mx-auto">
@@ -100,12 +100,16 @@ export default function Dashboard() {
                   )}
                   {role === "admin" && (
                     <>
-                      <li className=" hover:text-white/40 cursor-pointer">
-                        User Management
-                      </li>
-                      <li className=" hover:text-white/40 cursor-pointer">
-                        System Management
-                      </li>
+                      <NavLink to={"/dashboard/user-management"}>
+                        <li className=" hover:text-white/40 cursor-pointer">
+                          User Management
+                        </li>
+                      </NavLink>
+                      <NavLink to={"/dashboard/system-management"}>
+                        <li className=" hover:text-white/40 cursor-pointer">
+                          System Management
+                        </li>
+                      </NavLink>
                     </>
                   )}
                 </ul>
