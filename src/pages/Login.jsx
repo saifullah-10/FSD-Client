@@ -17,7 +17,6 @@ export default function Login() {
             Mobile Number:
             <input
               className="mt-3 block w-full outline-none rounded-xl border-2 px-5 py-2"
-              type="number"
               name="mobile_number"
               onInput={(e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numeric input
