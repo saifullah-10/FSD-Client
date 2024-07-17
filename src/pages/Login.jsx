@@ -1,6 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useLoginUserMutation } from "../app/services/userApi";
 
 export default function Login() {
+  const [loginUser, { data: UID, isSuccess }] = useLoginUserMutation();
+
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const phone = e.target.mobile_number.value;
+    const email = e.target.email.value;
+    const pin = e.target.pin_number.value;
+
+    try {
+      await loginUser({ phone: parseInt(phone.slice(1)), email, pin }).unwrap();
+    } catch (e) {
+      console.log(e, "Error");
+    }
+  };
+  if (isSuccess) {
+    if (UID) {
+      localStorage.setItem("info", UID?._id);
+      navigate("/dashboard");
+    }
+  }
   return (
     <section className=" flex justify-center items-center flex-col min-h-screen">
       <div className=" flex justify-center">
@@ -12,7 +34,7 @@ export default function Login() {
         <h1 className="text-center text-xl lg:text-2xl py-3 font-medium border-b-2">
           Login
         </h1>
-        <form className=" my-10 gap-2 flex flex-col">
+        <form onSubmit={handleLogin} className=" my-10 gap-2 flex flex-col">
           <label>
             Mobile Number:
             <input

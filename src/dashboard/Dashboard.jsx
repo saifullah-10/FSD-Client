@@ -1,7 +1,18 @@
 import { NavLink, Outlet } from "react-router-dom";
+import { useGetUserInfoQuery } from "../app/services/userApi";
 
 export default function Dashboard() {
-  const role = "admin";
+  const { data, isLoading } = useGetUserInfoQuery(localStorage.getItem("info"));
+
+  const role = data?.role;
+  const handleLogout = async () => {
+    localStorage.removeItem("info", "");
+    localStorage.removeItem("role");
+    window.location.href = "/";
+  };
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
   return (
     <section className=" min-h-screen py-10">
       <div className=" w-[98%] md:w-[70%] h-[calc(100vh-6rem)]  mx-auto">
@@ -112,6 +123,13 @@ export default function Dashboard() {
                       </NavLink>
                     </>
                   )}
+
+                  <li
+                    onClick={handleLogout}
+                    className=" hover:text-white/40 cursor-pointer"
+                  >
+                    Logout
+                  </li>
                 </ul>
               </div>
             </div>

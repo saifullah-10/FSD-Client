@@ -1,12 +1,51 @@
 import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { usePostUserMutation } from "../app/services/userApi";
+import { useEffect } from "react";
 
 export default function Registration() {
+  const [postUser, { data: UID, isLoading }] = usePostUserMutation();
   const { role } = useSelector((state) => state.registerRole);
+  const navigate = useNavigate();
+  console.log(UID);
+  useEffect(() => {
+    if (UID) {
+      localStorage.setItem("info", UID?._id);
+      navigate("/dashboard");
+    }
+  }, [UID, navigate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const phone = e.target.mobile_number.value;
+    const email = e.target.email.value;
+    const pin = e.target.pin_number.value;
+
+    const data = {
+      name,
+      phone: parseInt(phone),
+      email,
+      pin,
+      role,
+      amount: 0,
+      status: "pending",
+    };
+
+    try {
+      await postUser(data).unwrap();
+    } catch (e) {
+      console.log("failed to register", e);
+    }
+  };
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
 
   if (!role) {
     return <Navigate to={"/role"}></Navigate>;
   }
+
   return (
     <section className=" flex justify-center items-center flex-col min-h-screen">
       <div className=" flex justify-center">
@@ -18,13 +57,14 @@ export default function Registration() {
         <h1 className="text-center text-xl lg:text-2xl py-3 font-medium border-b-2">
           {role[0].toUpperCase() + role.slice(1)} Registration
         </h1>
-        <form className=" my-10 gap-2 flex flex-col">
+        <form onSubmit={handleSubmit} className=" my-10 gap-2 flex flex-col">
           <label>
             Name:
             <input
               className="mt-3 block w-full outline-none rounded-xl border-2 px-5 py-2"
               type="text"
               name="name"
+              placeholder="ex: Jamal"
             />
           </label>
           <label>
@@ -33,6 +73,7 @@ export default function Registration() {
               className="mt-3 block w-full outline-none rounded-xl border-2 px-5 py-2"
               type="number"
               name="mobile_number"
+              placeholder="ex: 01700000000"
               onInput={(e) => {
                 e.target.value = e.target.value.replace(/[^0-9]/g, ""); // Allow only numeric input
               }}
@@ -44,6 +85,7 @@ export default function Registration() {
               className="mt-3 block w-full outline-none rounded-xl border-2 px-5 py-2"
               type="email"
               name="email"
+              placeholder="ex: demo@example.com"
             />
           </label>
           <label>

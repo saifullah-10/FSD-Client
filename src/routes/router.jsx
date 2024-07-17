@@ -17,6 +17,7 @@ import TrManagement from "../dashboard/components/agent/TrManagement";
 import SystemManagement from "../dashboard/components/admin/SystemManagement";
 import UserManagement from "../dashboard/components/admin/UserManagement";
 import DefaultDashboard from "../dashboard/components/DefaultDashboard";
+import ProtectedRoute from "../protectedUser/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +39,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: "/dashboard",
